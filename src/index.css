@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container-button:hover{
+    background-color: #1f743fd7;
+}
+
+.container-button:hover .button-icon{
+    background-color: #186e39;
+    
+}
+
+.container-button:hover .icon,
+.container-button:hover .text-button{
+    color: #fff;
+}
+
+.container-button:hover .icon,
+.container-button:hover .text-button,
+.container-button:hover .button-icon,
+.container-button:hover{
+    transition: all 0.2s ease-in-out;
+}
+
+.shadow-person{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.shadow-item{
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.shadow-item-cart{
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 8px;
+}
+
+.shadow-item:hover{
+    transform: translateY(-3%);
+    
+}
+
+.container-grid-products{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    justify-content: start;
+}
+
+.description-product::-webkit-scrollbar,
+.name-product::-webkit-scrollbar{
+    width: 0;
+}

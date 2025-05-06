@@ -16,29 +16,33 @@ export async function addUser(data: UserData) {
       password: data.password,
       password_confirmation: data.password_confirmation
     })
-    if (result.success) {
-      // URL a la que mandaremos los datos
-      const url = `${import.meta.env.VITE_API_URL}/api/auth/create-account`
-      // Definimos el metodo de axios
-      await axios.post(url, {
-        // Mandamos los datos que fueron validados de valibot
-        name: result.output.name,
-        email: result.output.email,
-        password: result.output.password,
-        password_confirmation: result.output.password_confirmation,
-      })
-    } else {
-      throw new Error('Datos no válidos')
+    if (!result.success) {
+      return { error: 'Datos no válidos' };
     }
+    // URL a la que mandaremos los datos
+    const url = `${import.meta.env.VITE_API_URL}/api/auth/create-account`
+    // Definimos el metodo de axios
+    const response = await axios.post(url, {
+      // Mandamos los datos que fueron validados de valibot
+      name: result.output.name,
+      email: result.output.email,
+      password: result.output.password,
+      password_confirmation: result.output.password_confirmation,
+    })
+    return response.data
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       const resData = error.response.data;
 
-      if (Array.isArray(resData.errors) && resData.errors.length > 0) {
-        return resData.errors[0].msg;
+      if (typeof resData.error === 'string') {
+        return { error: resData.error };
       }
 
-      return 'Error al crear el usuario';
+      if (Array.isArray(resData.errors) && resData.errors.length > 0) {
+        return { error: resData.errors[0].msg };
+      }
+
+      return { error: 'Error al intentar acceder' };
     }
   }
 }

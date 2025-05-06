@@ -1,32 +1,26 @@
-import { ActionFunctionArgs, Form, Link, redirect, useActionData } from 'react-router-dom'
+import { ActionFunctionArgs, Form, Link, redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import ErrorMessage from '../components/ErrorMessage'
 import { addUser } from '../services/AuthService'
 
 export async function action({request} : ActionFunctionArgs){
     const data = Object.fromEntries(await request.formData())
-    let error = ''
-
-    if(Object.values(data).includes('')){
-        error = 'Todos los campos son obligatorios'
-        return error
-    }
-
+    
     // Aquí capturamos el error (si lo hay)
-    const addUserError = await addUser(data);
+    const result = await addUser(data);
 
-    if (addUserError) {
-        return addUserError;
+    if (result.error) {
+      toast.error(result.error);
+      return result.error;
     }
 
-    // Mandamos una retroalimentación
-    toast.success('Usuario creado correctamente')
-
-    return redirect('/auth/login')
+    if (result) {
+      // Mandamos una retroalimentación
+      toast.success('Usuario creado correctamente')
+      return redirect('/auth/login')
+    }    
 }
 
 export default function RegisterView() {
-    const error = useActionData() as string
   return (
     <>
       <div className="flex flex-col bg-white px-3 py-6 items-center rounded-lg shadow-md">
@@ -92,7 +86,6 @@ export default function RegisterView() {
               className="w-full p-2 text-sm border border-gray-300 rounded-md"
             />
           </div>
-          {error && <ErrorMessage>{error}</ErrorMessage>}
           <input
             type="submit"
             value='Registrarme'

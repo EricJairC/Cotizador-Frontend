@@ -4,12 +4,6 @@ import { login } from '../services/AuthService'
 
 export async function action({request} : ActionFunctionArgs){
   const data = Object.fromEntries(await request.formData())
-  let error = ''
-
-  if(Object.values(data).includes('')){
-      return error = 'Todos los campos son obligatorios'
-      
-  }
 
   const result = await login(data);
   if (result.error) {

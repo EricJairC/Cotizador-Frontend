@@ -31,7 +31,7 @@ export default function ProductDetails({product} : ProductDetailsProps) {
                 />
             </div>
             <p className=" h-6 overflow-y-auto font-bold name-product">{product.idProduct}. <span>{product.name}</span></p>
-            <p className=" description-product h-16 overflow-y-auto">{product.description}</p>
+            <p className=" description-product h-12 overflow-y-auto">{product.description}</p>
             <div className=" w-full flex justify-between">
                 <p className=" font-bold">{formatCurrency(product.price)}</p>
                 <ShoppingCartIcon

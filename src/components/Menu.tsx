@@ -28,7 +28,7 @@ export default function Menu() {
   return (
       <div className=' flex flex-row lg:flex-col justify-between lg:justify-normal pb-4 md:pb-0'>
           <div className=' flex flex-col items-center justify-center md:justify-normal'>
-              <img className=' w-10 h-10' src="https://www.bancoazteca.com.mx/content/dam/azteca/header/221229/logo-banco-azteca-mob.png" alt="" />
+              <img className=' w-10 h-10' src="/Logo.png" alt="" />
               <h2 className=' hidden lg:block text-xl font-bold'>Canal de terceros</h2>
           </div>
           
